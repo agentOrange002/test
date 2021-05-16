@@ -35,22 +35,35 @@ public class PostServiceImplementation implements PostService {
 	}
 
 	@Override
-	public List<PostDto> firstEndpoint(Boolean ascending,FirstTestModelRequest request) {
+	public List<PostDto> firstEndpoint(Boolean ascending,FirstTestModelRequest request) {		
+	
 		List<PostEntity> posts = new ArrayList<PostEntity>();
 		if(request.getUserId()==null|request.getUserId()==""|request.getUserId().equals(null)|"".compareTo(request.getUserId()) == 0) {
 			if(ascending) {
-				posts = postRepository.findByTitleInOrderByIdAsc(request.getKeywords());
+				//posts = postRepository.findByTitleLikeInOrderByIdAsc(request.getKeywords());
+				for(String keyword: request.getKeywords()) {
+					posts.addAll(postRepository.findByTitleContainingOrderByIdAsc(keyword));
+				}
 			}
 			else {
-				posts = postRepository.findByTitleInOrderByIdDesc(request.getKeywords());
+				//posts = postRepository.findByTitleLikeInOrderByIdDesc(request.getKeywords());
+				for(String keyword: request.getKeywords()) {
+					posts.addAll(postRepository.findByTitleContainingOrderByIdDesc(keyword));
+				}
 			}
 		}
 		else {
 			if(ascending) {
-				posts = postRepository.findByUserIdAndTitleInOrderByIdAsc(request.getUserId(),request.getKeywords());
+				//posts = postRepository.findByUserIdAndTitleLikeInOrderByIdAsc(request.getUserId(),request.getKeywords());
+				for(String keyword: request.getKeywords()) {
+					posts.addAll(postRepository.findByUserIdAndTitleContainingOrderByIdAsc(request.getUserId(),keyword));
+				}
 			}
 			else {
-				posts = postRepository.findByUserIdAndTitleInOrderByIdDesc(request.getUserId(),request.getKeywords());
+				//posts = postRepository.findByUserIdAndTitleLikeInOrderByIdDesc(request.getUserId(),request.getKeywords());
+				for(String keyword: request.getKeywords()) {
+					posts.addAll(postRepository.findByUserIdAndTitleContainingOrderByIdDesc(request.getUserId(),keyword));
+				}
 			}
 		}	
 		
