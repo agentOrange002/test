@@ -79,10 +79,16 @@ public class PostServiceImplementation implements PostService {
 	public CountModelResponse secondEndpoint(String type, SecondTestModelRequest request) {
 		long count = 0;
 		if(type.equals("title")) {
-			count = postRepository.countByTitleIn(request.getKeywords());
+			//count = postRepository.countByTitleIn(request.getKeywords());
+			for(String keyword: request.getKeywords()) {
+				count = count + postRepository.countByTitleContaining(keyword);				
+			}
 		}
 		else {
-			count = postRepository.countByBodyIn(request.getKeywords());
+			//count = postRepository.countByBodyIn(request.getKeywords());
+			for(String keyword: request.getKeywords()) {
+				count = count + postRepository.countByBodyContaining(keyword);				
+			}
 		}
 		CountModelResponse response = new CountModelResponse();
 		response.setType(type);

@@ -25,6 +25,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 	List<PostEntity> findByUserIdAndTitleContainingOrderByIdAsc(String userId,String title);
 	List<PostEntity> findByUserIdAndTitleContainingOrderByIdDesc(String userId,String title);
 	
-	long countByTitleIn(List<String> body);
-	long countByBodyIn(List<String> body);	
+	/*
+	 * long countByTitleIn(List<String> body); long countByBodyIn(List<String>
+	 * body);
+	 */
+	
+	long countByTitleContaining(String title);
+	long countByBodyContaining(String body);	
 }
