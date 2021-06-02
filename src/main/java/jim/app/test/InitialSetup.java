@@ -5,15 +5,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import jim.app.test.repository.PostRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Component
 @Transactional
-public class InitialSetup {
-	
-	private PostRepository postRepository;	
+public class InitialSetup {	
 
 	@EventListener 
 	@Transactional 
